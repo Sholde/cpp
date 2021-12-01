@@ -8,9 +8,7 @@
 
 constexpr size_t N_SAMPLES = 10'000'000;
 
-using namespace std;
-
-std::unique_ptr<std::vector<double>> init_vector(const uint64_t n)
+[[nodiscard]] std::unique_ptr<std::vector<double>> init_vector(const uint64_t n)
 {
   std::random_device rd;
   std::default_random_engine eng(rd());
@@ -26,7 +24,7 @@ std::unique_ptr<std::vector<double>> init_vector(const uint64_t n)
 
 namespace reduc
 {
-  double reduc_c(const std::vector<double> &a)
+  [[nodiscard]] double reduc_c(const std::vector<double> &a)
   {
     double res = 0.0;
 
@@ -39,7 +37,7 @@ namespace reduc
     return res;
   }
 
-  double reduc_for_range(const std::vector<double> &a)
+  [[nodiscard]] double reduc_for_range(const std::vector<double> &a)
   {
     double res = 0.0;
 
@@ -49,7 +47,7 @@ namespace reduc
     return res;
   }
 
-  double reduc_lambda(const std::vector<double> &a)
+  [[nodiscard]] double reduc_lambda(const std::vector<double> &a)
   {
     double res = 0.0;
 
@@ -60,7 +58,7 @@ namespace reduc
     return res;
   }
 
-  double reduc_reduce(const std::vector<double> &a)
+  [[nodiscard]] double reduc_reduce(const std::vector<double> &a)
   {
     return std::reduce(a.cbegin(), a.cend());
   }
@@ -77,7 +75,7 @@ void bench(const FUNC_PTR func, const std::vector<double> &a, const std::string 
   std::cout << str << " res " << res_reduc << " took " << ms.count() << " ms\n";
 }
 
-int main(int argc, char **argv)
+int main(void)
 {
   // Create vector
   std::unique_ptr<std::vector<double>>a = init_vector(N_SAMPLES);
